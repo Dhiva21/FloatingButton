@@ -45,3 +45,18 @@ body {
         .tippy-box[data-theme~='custom'][data-placement^='right'] > .tippy-arrow::before {
             border-right-color: #2046cf;
         }
+ .delete-icon {
+    font-size: 30px;
+    background-color: red;
+    color: #fff;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 56px;
+    padding: 0px 10px;
+}
+
+.hide {
+    display: none;
+}

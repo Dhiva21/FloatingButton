@@ -18,17 +18,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div>
-                        <div class="floating-icon">
+                        <div class="floating-icon" id="draggable">
                             <i class="fa-regular fa-star"></i>
                         </div>
                     </div>
                     <div>
-
+                        <div class="delete-icon" id="delete-icon" style="display:none;">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -76,6 +79,9 @@
             interact('.floating-icon')
                 .draggable({
                     listeners: {
+                        start(event) {
+                            document.getElementById('delete-icon').style.display = 'block';
+                        },
                         move(event) {
                             const target = event.target;
                             const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
@@ -84,24 +90,24 @@
                             target.style.transform = `translate(${x}px, ${y}px)`;
                             target.setAttribute('data-x', x);
                             target.setAttribute('data-y', y);
+                        },
+                        end(event) {
+                            document.getElementById('delete-icon').style.display = 'none';
                         }
                     }
                 });
 
-            document.querySelector('.icon').addEventListener('click', function () {
-                document.getElementById('draggable').style.display = 'none';
+
+            interact('#delete-icon').dropzone({
+                ondrop(event) {
+                    const star = event.relatedTarget;
+                    star.remove();
+                }
             });
-
-
-
-
-
-
-
-
         });
+
     </script>
 
 </body>
 
-</html> how to set in this code
+</html>
