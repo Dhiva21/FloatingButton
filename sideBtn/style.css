@@ -11,7 +11,7 @@ body {
     right: 2%;
     font-size: 30px;
     color: #fff;
-    cursor: pointer;
+    cursor: pointer !important;
     bottom: 6%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 2px 9px;
