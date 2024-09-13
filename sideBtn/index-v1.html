@@ -58,18 +58,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.8/jquery.jgrowl.min.js"></script>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 
     <script>
         $(document).ready(function () {
-            // Page load jGrowl alert
+
             $.jGrowl("Welcome! This is your initial alert on page load.", {
                 header: 'Page Load Alert',
                 life: 3000,
                 theme: 'bg-info'
             });
 
-            // Show jGrowl only when hovering directly on the icon
+
             $('.floating-icon').mouseenter(function () {
                 $.jGrowl("Here is some information about the icon.", {
                     header: 'Icon Info',

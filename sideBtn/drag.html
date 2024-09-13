@@ -39,12 +39,10 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script>
-
-    <!-- <script src="script.js"></script> -->
+    <script src="script.js"></script>
 
     <script>
         $(document).ready(function () {
-            // Initialize the tooltip
             const instance = tippy('.floating-icon', {
                 content: 'Hi ! Welcome',
                 trigger: 'manual',
@@ -60,50 +58,70 @@
                 instance[0].hide();
             }, 3000);
 
-            tippy('.floating-icon', {
-                content: 'How Can I help You !!',
-                theme: 'custom customone',
-                arrow: true,
-                trigger: 'mouseenter',
-                hideOnClick: false,
-                duration: [500, 1000],
-                onShow(instance) {
-                    instance.reference.addEventListener('mouseleave', () => {
-                        instance.hide();
-                    });
-                },
-                placement: 'top',
-            });
+            const hoverIcon = () => {
+                tippy('.floating-icon', {
+                    content: 'How Can I help You !!',
+                    theme: 'custom customone',
+                    arrow: true,
+                    trigger: 'mouseenter',
+                    hideOnClick: false,
+                    duration: [500, 1000],
+                    onShow(instance) {
+                        console.log("Icon is hovered");
+                        instance.reference.addEventListener('mouseleave', () => {
+                            instance.hide();
+                            console.log("Hover ended, icon hidden");
+                        });
+                    },
+                    placement: 'top',
+                });
+            }
+            hoverIcon();
 
 
-            interact('.floating-icon')
-                .draggable({
-                    listeners: {
-                        start(event) {
-                            document.getElementById('delete-icon').style.display = 'block';
-                        },
-                        move(event) {
-                            const target = event.target;
-                            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-                            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-                            target.style.transform = `translate(${x}px, ${y}px)`;
-                            target.setAttribute('data-x', x);
-                            target.setAttribute('data-y', y);
-                        },
-                        end(event) {
-                            document.getElementById('delete-icon').style.display = 'none';
+            const dragIcon = () => {
+                interact('.floating-icon')
+                    .draggable({
+                        listeners: {
+                            start(event) {
+                                console.log("Icon dragging started");
+                                document.getElementById('delete-icon').style.display = 'block';
+                            },
+                            move(event) {
+                                const target = event.target;
+                                const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                                const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                                target.style.transform = `translate(${x}px, ${y}px)`;
+                                target.setAttribute('data-x', x);
+                                target.setAttribute('data-y', y);
+                                console.log('Icon dragging Position');
+                            },
+                            end(event) {
+                                console.log("Icon dragging ended")
+                                document.getElementById('delete-icon').style.display = 'none';
+                            }
+
+
                         }
+
+                    });
+            }
+            dragIcon();
+
+
+            const removeIcon = () => {
+                interact('#delete-icon').dropzone({
+                    ondrop(event) {
+                        const star = event.relatedTarget;
+                        star.remove();
+                        console.log("Icon is removed")
                     }
                 });
+            }
+            removeIcon();
 
-
-            interact('#delete-icon').dropzone({
-                ondrop(event) {
-                    const star = event.relatedTarget;
-                    star.remove();
-                }
-            });
         });
 
     </script>
